@@ -5,25 +5,77 @@ import { ParagraphForm, QuoteForm } from './components/EditorForm';
 
 function App() {
   const [show, setShow] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState([
+    {
+      data: "To get started you'll need to install the following packages into your project using a package manager like npm (opens new window)and yarn (opens new window). Here are examples that install everything you need and our solid style of icons using each respective package manager.",
+      item: 'paragraph',
+    },
+  ]);
   const [searchValue, onSearchChange] = useState('');
 
   const handleClick = (e) => {
     e.preventDefault();
     setShow(!show);
+    onSearchChange('');
   };
 
-  console.log(data);
+  const moveUp = (id) => {
+    if (data.length >= 2) {
+      if (id > 0) {
+        const currentItem = data[id];
+        setData((data) => {
+          data.splice(id - 1, 0, currentItem);
+          data.splice(id + 1, 1);
+          return [...data];
+        });
+      }
+    }
+  };
+
+  const moveDown = (id) => {
+    console.log(data.length);
+    if (id + 1 < data.length) {
+      console.log('hi');
+      moveUp(id + 1);
+    }
+  };
+
+  const deleteSection = (id) => {
+    setData((data) => {
+      data.splice(id, 1);
+      return [...data];
+    });
+  };
+
+  const editSection = (id) => {};
 
   return (
     <div className="container mx-auto max-w-6xl py-6">
       <div>
         {data.map((singleData, idx) => {
           if (singleData.item === 'paragraph') {
-            return <Paragraph key={idx} data={singleData.data} />;
+            return (
+              <Paragraph
+                key={idx}
+                id={idx}
+                data={singleData.data}
+                moveUp={moveUp}
+                moveDown={moveDown}
+                deleteSection={deleteSection}
+              />
+            );
           }
           if (singleData.item === 'quote') {
-            return <Quote key={idx} data={singleData.data} />;
+            return (
+              <Quote
+                key={idx}
+                id={idx}
+                data={singleData.data}
+                moveUp={moveUp}
+                moveDown={moveDown}
+                deleteSection={deleteSection}
+              />
+            );
           }
         })}
       </div>
