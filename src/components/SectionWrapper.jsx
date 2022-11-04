@@ -7,14 +7,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useState } from 'react';
 
-const SectionWrapper = ({
-  data,
-  id,
-  moveUp,
-  moveDown,
-  deleteSection,
-  children,
-}) => {
+const SectionWrapper = ({ id, moveUp, moveDown, deleteSection, children }) => {
   const [show, setShow] = useState(false);
 
   const handleClick = (e) => {

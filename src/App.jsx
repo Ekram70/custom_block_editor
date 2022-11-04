@@ -5,12 +5,7 @@ import { ParagraphForm, QuoteForm } from './components/EditorForm';
 
 function App() {
   const [show, setShow] = useState(false);
-  const [data, setData] = useState([
-    {
-      data: "To get started you'll need to install the following packages into your project using a package manager like npm (opens new window)and yarn (opens new window). Here are examples that install everything you need and our solid style of icons using each respective package manager.",
-      item: 'paragraph',
-    },
-  ]);
+  const [data, setData] = useState([]);
   const [searchValue, onSearchChange] = useState('');
 
   const handleClick = (e) => {
@@ -33,9 +28,7 @@ function App() {
   };
 
   const moveDown = (id) => {
-    console.log(data.length);
     if (id + 1 < data.length) {
-      console.log('hi');
       moveUp(id + 1);
     }
   };
@@ -48,17 +41,6 @@ function App() {
   };
 
   const editSection = (id) => {};
-
-  /* 
-  <Paragraph
-                key={idx}
-                id={idx}
-                data={singleData.data}
-                moveUp={moveUp}
-                moveDown={moveDown}
-                deleteSection={deleteSection}
-              />
-  */
 
   return (
     <div className="container mx-auto max-w-6xl py-6">
