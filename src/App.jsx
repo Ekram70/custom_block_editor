@@ -13,7 +13,7 @@ function App() {
     setShow(!show);
   };
 
-  console.log(searchValue);
+  console.log(data);
 
   return (
     <div className="container mx-auto max-w-6xl py-6">

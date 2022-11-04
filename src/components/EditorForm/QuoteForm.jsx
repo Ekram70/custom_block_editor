@@ -1,22 +1,35 @@
 import { useState } from 'react';
 
 const Quote = ({ setData, setShow, onSearchChange }) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState({
+    text: '',
+    author: '',
+    designation: '',
+  });
   const [first, setFirst] = useState(true);
 
   const handleChange = (e) => {
-    setValue(e.target.value);
+    setValue((value) => {
+      return {
+        ...value,
+        [e.target.name]: e.target.value,
+      };
+    });
   };
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (value) {
+    if (value.text) {
       setData((data) => {
         return [
           ...data,
           {
             item: 'quote',
-            data: value,
+            data: {
+              text: value.text,
+              author: value.author,
+              designation: value.designation,
+            },
           },
         ];
       });
@@ -41,7 +54,8 @@ const Quote = ({ setData, setShow, onSearchChange }) => {
           Enter Quote Text
         </label>
         <textarea
-          value={value}
+          value={value.text}
+          name="text"
           onChange={handleChange}
           className="block p-2.5 w-full h-20 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
         ></textarea>
@@ -49,42 +63,8 @@ const Quote = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <div className="flex justify-between">
-        <div className="w-1/2 mr-2">
-          <label
-            for="first_name"
-            class="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Author Name
-          </label>
-          <input
-            type="text"
-            id="first_name"
-            class="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
-            placeholder="Enter Author Name"
-          />
-        </div>
-
-        <div className="w-1/2 ml-2">
-          <label
-            for="first_name"
-            class="block mb-2 text-sm font-medium text-gray-400"
-          >
-            Author Designation
-          </label>
-          <input
-            type="text"
-            id="first_name"
-            class="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
-            placeholder="Enter Author Designation"
-          />
-        </div>
-      </div>
-
-      <br />
-
       <div>
-        {!value && !first && (
+        {!value.text && !first && (
           <div
             className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
             role="alert"
@@ -94,6 +74,40 @@ const Quote = ({ setData, setShow, onSearchChange }) => {
           </div>
         )}
       </div>
+
+      <br />
+
+      <div className="flex justify-between">
+        <div className="w-1/2 mr-2">
+          <label className="block mb-2 text-sm font-medium text-gray-400">
+            Author Name (Optional)
+          </label>
+          <input
+            type="text"
+            value={value.author}
+            onChange={handleChange}
+            name="author"
+            className="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
+            placeholder="Enter Author Name"
+          />
+        </div>
+
+        <div className="w-1/2 ml-2">
+          <label className="block mb-2 text-sm font-medium text-gray-400">
+            Author Designation (Optional)
+          </label>
+          <input
+            type="text"
+            value={value.designation}
+            onChange={handleChange}
+            name="designation"
+            className="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
+            placeholder="Enter Author Designation"
+          />
+        </div>
+      </div>
+
+      <br />
 
       <div className="flex justify-end">
         <button
