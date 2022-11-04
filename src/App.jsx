@@ -1,6 +1,6 @@
 import { Select } from '@mantine/core';
 import { useState } from 'react';
-import { Paragraph, Quote } from './components';
+import { Paragraph, Quote, SectionWrapper } from './components';
 import { ParagraphForm, QuoteForm } from './components/EditorForm';
 
 function App() {
@@ -49,32 +49,45 @@ function App() {
 
   const editSection = (id) => {};
 
+  /* 
+  <Paragraph
+                key={idx}
+                id={idx}
+                data={singleData.data}
+                moveUp={moveUp}
+                moveDown={moveDown}
+                deleteSection={deleteSection}
+              />
+  */
+
   return (
     <div className="container mx-auto max-w-6xl py-6">
       <div>
         {data.map((singleData, idx) => {
           if (singleData.item === 'paragraph') {
             return (
-              <Paragraph
+              <SectionWrapper
                 key={idx}
                 id={idx}
-                data={singleData.data}
                 moveUp={moveUp}
                 moveDown={moveDown}
                 deleteSection={deleteSection}
-              />
+              >
+                <Paragraph data={singleData.data} />
+              </SectionWrapper>
             );
           }
           if (singleData.item === 'quote') {
             return (
-              <Quote
+              <SectionWrapper
                 key={idx}
                 id={idx}
-                data={singleData.data}
                 moveUp={moveUp}
                 moveDown={moveDown}
                 deleteSection={deleteSection}
-              />
+              >
+                <Quote data={singleData.data} />
+              </SectionWrapper>
             );
           }
         })}
