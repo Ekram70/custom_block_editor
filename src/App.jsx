@@ -1,11 +1,14 @@
 import { Select } from '@mantine/core';
 import { useState } from 'react';
-import { Paragraph, Quote, SectionWrapper } from './components';
-import { ParagraphForm, QuoteForm } from './components/EditorForm';
+import { Headings, Paragraph, Quote, SectionWrapper } from './components';
+import {
+  HeadingsForm,
+  ParagraphForm,
+  QuoteForm,
+} from './components/EditorForm';
 
 function App() {
   const [show, setShow] = useState(false);
-  const [showIconGroup, setShowIconGroup] = useState(false);
   const [data, setData] = useState([]);
   const [searchValue, onSearchChange] = useState('');
 
@@ -71,6 +74,19 @@ function App() {
               </SectionWrapper>
             );
           }
+          if (singleData.item === 'headings') {
+            return (
+              <SectionWrapper
+                key={idx}
+                id={idx}
+                moveUp={moveUp}
+                moveDown={moveDown}
+                deleteSection={deleteSection}
+              >
+                <Headings data={singleData.data} />
+              </SectionWrapper>
+            );
+          }
         })}
       </div>
       <br />
@@ -98,6 +114,7 @@ function App() {
           data={[
             { value: 'paragraph', label: 'Paragraph' },
             { value: 'quote', label: 'Quote' },
+            { value: 'headings', label: 'Headings' },
           ]}
           className="flex justify-center"
         />
@@ -114,6 +131,13 @@ function App() {
       )}
       {searchValue === 'Quote' && (
         <QuoteForm
+          setData={setData}
+          setShow={setShow}
+          onSearchChange={onSearchChange}
+        />
+      )}
+      {searchValue === 'Headings' && (
+        <HeadingsForm
           setData={setData}
           setShow={setShow}
           onSearchChange={onSearchChange}

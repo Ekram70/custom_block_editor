@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Quote = ({ setData, setShow, onSearchChange }) => {
+const QuoteForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState({
     text: '',
     author: '',
@@ -127,4 +127,4 @@ const Quote = ({ setData, setShow, onSearchChange }) => {
   );
 };
 
-export default Quote;
+export default QuoteForm;

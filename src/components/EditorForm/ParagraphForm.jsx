@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-const Paragraph = ({ setData, setShow, onSearchChange }) => {
+const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState('');
   const [first, setFirst] = useState(true);
 
@@ -79,4 +79,4 @@ const Paragraph = ({ setData, setShow, onSearchChange }) => {
   );
 };
 
-export default Paragraph;
+export default ParagraphForm;
