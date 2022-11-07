@@ -2,7 +2,7 @@ import React from 'react';
 
 const Quote = ({ data }) => {
   return (
-    <figure className="mx-auto max-w-screen-md text-center mt-14">
+    <figure className="mx-auto max-w-screen-md text-center">
       <svg
         aria-hidden="true"
         className="mx-auto mb-3 w-12 h-12 text-gray-400"

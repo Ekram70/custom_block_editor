@@ -5,6 +5,7 @@ import { ParagraphForm, QuoteForm } from './components/EditorForm';
 
 function App() {
   const [show, setShow] = useState(false);
+  const [showIconGroup, setShowIconGroup] = useState(false);
   const [data, setData] = useState([]);
   const [searchValue, onSearchChange] = useState('');
 
@@ -39,8 +40,6 @@ function App() {
       return [...data];
     });
   };
-
-  const editSection = (id) => {};
 
   return (
     <div className="container mx-auto max-w-6xl py-6">
