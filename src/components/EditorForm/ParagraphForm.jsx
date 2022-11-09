@@ -3,6 +3,8 @@ import { useState } from 'react';
 const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState('');
   const [first, setFirst] = useState(true);
+  const [fontSize, setFontSize] = useState('text-base');
+  const [textAlign, setTextAlign] = useState('text-left');
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -16,7 +18,11 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
           ...data,
           {
             item: 'paragraph',
-            data: value,
+            data: {
+              fontSize: fontSize,
+              textAlign: textAlign,
+              text: value,
+            },
           },
         ];
       });
@@ -37,9 +43,105 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   return (
     <form>
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-          Enter Paragraph Text
-        </label>
+        <div className="flex justify-between mb-2">
+          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
+            Enter Paragraph Text
+          </label>
+          <div className="flex gap-2">
+            <div className="flex justify-end rounded-md">
+              <button
+                type="button"
+                onClick={() => setTextAlign('text-left')}
+                className={`${
+                  textAlign === 'text-left'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium rounded-l-lg border border-gray-200`}
+              >
+                left
+              </button>
+              <button
+                type="button"
+                onClick={() => setTextAlign('text-center')}
+                className={`${
+                  textAlign === 'text-center'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
+              >
+                center
+              </button>
+              <button
+                type="button"
+                onClick={() => setTextAlign('text-right')}
+                className={`${
+                  textAlign === 'text-right'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium rounded-r-md border border-gray-200`}
+              >
+                right
+              </button>
+            </div>
+            <div className="flex justify-end rounded-md">
+              <button
+                type="button"
+                onClick={() => setFontSize('text-xs')}
+                className={`${
+                  fontSize === 'text-xs'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium rounded-l-lg border border-gray-200`}
+              >
+                xs
+              </button>
+              <button
+                type="button"
+                onClick={() => setFontSize('text-sm')}
+                className={`${
+                  fontSize === 'text-sm'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
+              >
+                sm
+              </button>
+              <button
+                type="button"
+                onClick={() => setFontSize('text-base')}
+                className={`${
+                  fontSize === 'text-base'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
+              >
+                base
+              </button>
+              <button
+                type="button"
+                onClick={() => setFontSize('text-lg')}
+                className={`${
+                  fontSize === 'text-lg'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
+              >
+                lg
+              </button>
+              <button
+                type="button"
+                onClick={() => setFontSize('text-xl')}
+                className={`${
+                  fontSize === 'text-xl'
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
+                } py-1 px-2 text-sm font-medium rounded-r-md border border-gray-200`}
+              >
+                xl
+              </button>
+            </div>
+          </div>
+        </div>
         <textarea
           value={value}
           onChange={handleChange}
