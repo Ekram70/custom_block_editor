@@ -1,9 +1,17 @@
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mantine/core';
 import { useState } from 'react';
 
 const HeadingsForm = ({ setData, setShow, onSearchChange }) => {
   const [heading, setHeading] = useState('h1');
   const [value, setValue] = useState('');
-  const [first, setFirst] = useState(true);
+  const [opened, setOpened] = useState(false);
+
+  const handleChange = (e) => {
+    setValue(e.target.value);
+    setOpened(true);
+  };
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -24,7 +32,7 @@ const HeadingsForm = ({ setData, setShow, onSearchChange }) => {
       setShow(false);
       onSearchChange('');
     } else {
-      setFirst(false);
+      setOpened(true);
     }
   };
 
@@ -114,24 +122,26 @@ const HeadingsForm = ({ setData, setShow, onSearchChange }) => {
         <textarea
           value={value.text}
           name="text"
-          onChange={(e) => setValue(e.target.value)}
+          onChange={handleChange}
           className="block p-2.5 w-full h-20 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
         ></textarea>
       </div>
 
       <br />
 
-      <div>
-        {!value.text && !first && (
-          <div
-            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-            role="alert"
-          >
-            <span className="font-medium">Danger alert!</span> Please Enter Some
-            Text.
-          </div>
-        )}
-      </div>
+      {!value && opened && (
+        <Alert
+          icon={<FontAwesomeIcon icon={faCircleExclamation} />}
+          title="Danger alert!"
+          color="red"
+          radius="md"
+          variant="outline"
+          onClose={() => setOpened(false)}
+          withCloseButton
+        >
+          Please Enter Some Text.
+        </Alert>
+      )}
 
       <br />
 

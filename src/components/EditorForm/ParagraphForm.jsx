@@ -1,13 +1,17 @@
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mantine/core';
 import { useState } from 'react';
 
 const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState('');
-  const [first, setFirst] = useState(true);
   const [fontSize, setFontSize] = useState('text-base');
   const [textAlign, setTextAlign] = useState('text-left');
+  const [opened, setOpened] = useState(false);
 
   const handleChange = (e) => {
     setValue(e.target.value);
+    setOpened(true);
   };
 
   const handleClick = (e) => {
@@ -30,7 +34,7 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
       setShow(false);
       onSearchChange('');
     } else {
-      setFirst(false);
+      setOpened(true);
     }
   };
 
@@ -151,17 +155,21 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <div>
-        {!value && !first && (
-          <div
-            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-            role="alert"
-          >
-            <span className="font-medium">Danger alert!</span> Please Enter Some
-            Text.
-          </div>
-        )}
-      </div>
+      {!value && opened && (
+        <Alert
+          icon={<FontAwesomeIcon icon={faCircleExclamation} />}
+          title="Danger alert!"
+          color="red"
+          radius="md"
+          variant="outline"
+          onClose={() => setOpened(false)}
+          withCloseButton
+        >
+          Please Enter Some Text.
+        </Alert>
+      )}
+
+      <br />
 
       <div className="flex justify-end">
         <button

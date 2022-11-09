@@ -1,3 +1,6 @@
+import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Alert } from '@mantine/core';
 import { useState } from 'react';
 
 const QuoteForm = ({ setData, setShow, onSearchChange }) => {
@@ -6,7 +9,7 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
     author: '',
     designation: '',
   });
-  const [first, setFirst] = useState(true);
+  const [opened, setOpened] = useState(false);
 
   const handleChange = (e) => {
     setValue((value) => {
@@ -15,6 +18,7 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
         [e.target.name]: e.target.value,
       };
     });
+    setOpened(true);
   };
 
   const handleClick = (e) => {
@@ -37,7 +41,7 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
       setShow(false);
       onSearchChange('');
     } else {
-      setFirst(false);
+      setOpened(true);
     }
   };
 
@@ -63,17 +67,19 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <div>
-        {!value.text && !first && (
-          <div
-            className="p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
-            role="alert"
-          >
-            <span className="font-medium">Danger alert!</span> Please Enter Some
-            Text.
-          </div>
-        )}
-      </div>
+      {!value.text && opened && (
+        <Alert
+          icon={<FontAwesomeIcon icon={faCircleExclamation} />}
+          title="Danger alert!"
+          color="red"
+          radius="md"
+          variant="outline"
+          onClose={() => setOpened(false)}
+          withCloseButton
+        >
+          Please Enter Some Text.
+        </Alert>
+      )}
 
       <br />
 
