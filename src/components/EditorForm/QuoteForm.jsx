@@ -1,7 +1,7 @@
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Alert } from '@mantine/core';
 import { useState } from 'react';
+import styles from './constants';
+import DangerAlert from './DangerAlert';
+import FormButtons from './FormButtons';
 
 const QuoteForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState({
@@ -54,52 +54,36 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
   return (
     <form>
       <div>
-        <label className="block mb-2 text-sm font-medium text-gray-400">
-          Enter Quote Text
-        </label>
+        <label className={styles.formLabel}>Enter Quote Text</label>
         <textarea
           value={value.text}
           name="text"
           onChange={handleChange}
-          className="block p-2.5 w-full h-20 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
+          className={styles.formTextarea}
         ></textarea>
       </div>
 
       <br />
 
-      {!value.text && opened && (
-        <Alert
-          icon={<FontAwesomeIcon icon={faCircleExclamation} />}
-          title="Danger alert!"
-          color="red"
-          radius="md"
-          variant="outline"
-          onClose={() => setOpened(false)}
-          withCloseButton
-        >
-          Please Enter Some Text.
-        </Alert>
-      )}
+      {!value.text && opened && <DangerAlert setOpened={setOpened} />}
 
       <br />
 
       <div className="flex justify-between">
         <div className="w-1/2 mr-2">
-          <label className="block mb-2 text-sm font-medium text-gray-400">
-            Author Name (Optional)
-          </label>
+          <label className={styles.formLabel}>Author Name (Optional)</label>
           <input
             type="text"
             value={value.author}
             onChange={handleChange}
             name="author"
-            className="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
+            className={styles.formQuoteInput}
             placeholder="Enter Author Name"
           />
         </div>
 
         <div className="w-1/2 ml-2">
-          <label className="block mb-2 text-sm font-medium text-gray-400">
+          <label className={styles.formLabel}>
             Author Designation (Optional)
           </label>
           <input
@@ -107,7 +91,7 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
             value={value.designation}
             onChange={handleChange}
             name="designation"
-            className="block p-2.5 w-full h-10 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold"
+            className={styles.formQuoteInput}
             placeholder="Enter Author Designation"
           />
         </div>
@@ -115,20 +99,7 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <div className="flex justify-end">
-        <button
-          onClick={handleClick}
-          className="text-white bg-gradient-to-br from-green-500 to-blue-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-        >
-          Done
-        </button>
-        <button
-          onClick={handleCancel}
-          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-        >
-          Cancel
-        </button>
-      </div>
+      <FormButtons handleClick={handleClick} handleCancel={handleCancel} />
     </form>
   );
 };

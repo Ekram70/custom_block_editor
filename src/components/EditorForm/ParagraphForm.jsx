@@ -1,12 +1,13 @@
-import { faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Alert } from '@mantine/core';
 import { useState } from 'react';
+import ButtonGroup from './ButtonGroup';
+import styles from './constants';
+import DangerAlert from './DangerAlert';
+import FormButtons from './FormButtons';
 
 const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState('');
-  const [fontSize, setFontSize] = useState('text-base');
   const [textAlign, setTextAlign] = useState('text-left');
+  const [fontSize, setFontSize] = useState('text-base');
   const [opened, setOpened] = useState(false);
 
   const handleChange = (e) => {
@@ -48,143 +49,36 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
     <form>
       <div>
         <div className="flex justify-between mb-2">
-          <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
-            Enter Paragraph Text
-          </label>
+          <label className={styles.formLabel}>Enter Paragraph Text</label>
           <div className="flex gap-2">
-            <div className="flex justify-end rounded-md">
-              <button
-                type="button"
-                onClick={() => setTextAlign('text-left')}
-                className={`${
-                  textAlign === 'text-left'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium rounded-l-lg border border-gray-200`}
-              >
-                left
-              </button>
-              <button
-                type="button"
-                onClick={() => setTextAlign('text-center')}
-                className={`${
-                  textAlign === 'text-center'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
-              >
-                center
-              </button>
-              <button
-                type="button"
-                onClick={() => setTextAlign('text-right')}
-                className={`${
-                  textAlign === 'text-right'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium rounded-r-md border border-gray-200`}
-              >
-                right
-              </button>
-            </div>
-            <div className="flex justify-end rounded-md">
-              <button
-                type="button"
-                onClick={() => setFontSize('text-xs')}
-                className={`${
-                  fontSize === 'text-xs'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium rounded-l-lg border border-gray-200`}
-              >
-                xs
-              </button>
-              <button
-                type="button"
-                onClick={() => setFontSize('text-sm')}
-                className={`${
-                  fontSize === 'text-sm'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
-              >
-                sm
-              </button>
-              <button
-                type="button"
-                onClick={() => setFontSize('text-base')}
-                className={`${
-                  fontSize === 'text-base'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
-              >
-                base
-              </button>
-              <button
-                type="button"
-                onClick={() => setFontSize('text-lg')}
-                className={`${
-                  fontSize === 'text-lg'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium border-t border-b border-gray-200`}
-              >
-                lg
-              </button>
-              <button
-                type="button"
-                onClick={() => setFontSize('text-xl')}
-                className={`${
-                  fontSize === 'text-xl'
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-white text-gray-900 hover:bg-blue-700 hover:text-white'
-                } py-1 px-2 text-sm font-medium rounded-r-md border border-gray-200`}
-              >
-                xl
-              </button>
-            </div>
+            <ButtonGroup
+              property={textAlign}
+              setProperty={setTextAlign}
+              values={['text-left', 'text-center', 'text-right']}
+              texts={['left', 'center', 'right']}
+            />
+            <ButtonGroup
+              property={fontSize}
+              setProperty={setFontSize}
+              values={['text-xs', 'text-sm', 'text-base', 'text-lg', 'text-xl']}
+              texts={['xs', 'sm', 'base', 'lg', 'xl']}
+            />
           </div>
         </div>
         <textarea
           value={value}
           onChange={handleChange}
-          className="block p-2.5 w-full h-44 text-sm text-gray-900 bg-blue-50 rounded-lg border-dashed border-2 border-sky-500 focus-visible:outline-none font-semibold "
+          className={styles.formTextarea}
         ></textarea>
       </div>
 
       <br />
 
-      {!value && opened && (
-        <Alert
-          icon={<FontAwesomeIcon icon={faCircleExclamation} />}
-          title="Danger alert!"
-          color="red"
-          radius="md"
-          variant="outline"
-          onClose={() => setOpened(false)}
-          withCloseButton
-        >
-          Please Enter Some Text.
-        </Alert>
-      )}
+      {!value && opened && <DangerAlert setOpened={setOpened} />}
 
       <br />
 
-      <div className="flex justify-end">
-        <button
-          onClick={handleClick}
-          className="text-white bg-gradient-to-br from-green-500 to-blue-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-        >
-          Done
-        </button>
-        <button
-          onClick={handleCancel}
-          className="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2"
-        >
-          Cancel
-        </button>
-      </div>
+      <FormButtons handleClick={handleClick} handleCancel={handleCancel} />
     </form>
   );
 };

@@ -7,6 +7,8 @@ import {
   QuoteForm,
 } from './components/EditorForm';
 
+import styles from './components/constants';
+
 function App() {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
@@ -18,6 +20,7 @@ function App() {
     onSearchChange('');
   };
 
+  // moveUp, moveDown, deleteSection for wrapper Section
   const moveUp = (id) => {
     if (data.length >= 2) {
       if (id > 0) {
@@ -46,6 +49,7 @@ function App() {
 
   return (
     <div className="container mx-auto max-w-6xl py-6">
+      {/* Store data shown first */}
       <div>
         {data.map((singleData, idx) => {
           if (singleData.item === 'paragraph') {
@@ -90,15 +94,16 @@ function App() {
         })}
       </div>
       <br />
+
+      {/* add section btn */}
       <div className="text-center">
-        <button
-          onClick={handleClick}
-          className="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl shadow-lg shadow-cyan-500/50 active:scale-95 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 "
-        >
+        <button onClick={handleClick} className={styles.addSectionBtn}>
           Add Section
         </button>
       </div>
       <br />
+
+      {/* this is the dropdown for section selection */}
       {show && (
         <Select
           placeholder="Pick one"
@@ -122,6 +127,9 @@ function App() {
 
       <br />
       <br />
+
+      {/* Showing Forms upon section selection */}
+
       {searchValue === 'Paragraph' && (
         <ParagraphForm
           setData={setData}
