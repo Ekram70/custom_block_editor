@@ -1,18 +1,18 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { showNotification } from '@mantine/notifications';
 import { useState } from 'react';
 import ButtonGroup from './ButtonGroup';
 import styles from './constants';
-import DangerAlert from './DangerAlert';
 import FormButtons from './FormButtons';
 
 const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
   const [value, setValue] = useState('');
   const [textAlign, setTextAlign] = useState('text-left');
   const [fontSize, setFontSize] = useState('text-base');
-  const [opened, setOpened] = useState(false);
 
   const handleChange = (e) => {
     setValue(e.target.value);
-    setOpened(true);
   };
 
   const handleClick = (e) => {
@@ -35,7 +35,13 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
       setShow(false);
       onSearchChange('');
     } else {
-      setOpened(true);
+      showNotification({
+        message: 'Please Enter Some Text',
+        autoClose: 1500,
+        color: 'red',
+        icon: <FontAwesomeIcon icon={faXmark} />,
+        radius: 'md',
+      });
     }
   };
 
@@ -73,8 +79,6 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
       </div>
 
       <br />
-
-      {!value && opened && <DangerAlert setOpened={setOpened} />}
 
       <br />
 

@@ -1,6 +1,8 @@
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { showNotification } from '@mantine/notifications';
 import { useState } from 'react';
 import styles from './constants';
-import DangerAlert from './DangerAlert';
 import FormButtons from './FormButtons';
 
 const QuoteForm = ({ setData, setShow, onSearchChange }) => {
@@ -9,7 +11,6 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
     author: '',
     designation: '',
   });
-  const [opened, setOpened] = useState(false);
 
   const handleChange = (e) => {
     setValue((value) => {
@@ -18,7 +19,6 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
         [e.target.name]: e.target.value,
       };
     });
-    setOpened(true);
   };
 
   const handleClick = (e) => {
@@ -41,7 +41,13 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
       setShow(false);
       onSearchChange('');
     } else {
-      setOpened(true);
+      showNotification({
+        message: 'Please Enter Some Text',
+        autoClose: 1500,
+        color: 'red',
+        icon: <FontAwesomeIcon icon={faXmark} />,
+        radius: 'md',
+      });
     }
   };
 
@@ -64,8 +70,6 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
       </div>
 
       <br />
-
-      {!value.text && opened && <DangerAlert setOpened={setOpened} />}
 
       <br />
 
