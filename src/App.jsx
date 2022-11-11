@@ -48,6 +48,7 @@ function App() {
             { value: 'paragraph', label: 'Paragraph' },
             { value: 'quote', label: 'Quote' },
             { value: 'headings', label: 'Headings' },
+            { value: 'lists', label: 'Lists' },
           ]}
           className="flex justify-center"
         />

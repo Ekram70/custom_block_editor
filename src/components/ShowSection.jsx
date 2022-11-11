@@ -1,5 +1,5 @@
 import React from 'react';
-import { Headings, Paragraph, Quote, SectionWrapper } from './';
+import { Headings, Lists, Paragraph, Quote, SectionWrapper } from './';
 
 const ShowSection = ({ data, setData }) => {
   return (
@@ -23,6 +23,13 @@ const ShowSection = ({ data, setData }) => {
           return (
             <SectionWrapper key={idx} id={idx} data={data} setData={setData}>
               <Headings data={singleData.data} />
+            </SectionWrapper>
+          );
+        }
+        if (singleData.item === 'lists') {
+          return (
+            <SectionWrapper key={idx} id={idx} data={data} setData={setData}>
+              <Lists data={singleData.data} />
             </SectionWrapper>
           );
         }

@@ -1,5 +1,10 @@
 import React from 'react';
-import { HeadingsForm, ParagraphForm, QuoteForm } from './EditorForm';
+import {
+  HeadingsForm,
+  ListsForm,
+  ParagraphForm,
+  QuoteForm,
+} from './EditorForm';
 
 const ShowForm = ({
   searchValue,
@@ -28,6 +33,14 @@ const ShowForm = ({
       )}
       {searchValue === 'Headings' && (
         <HeadingsForm
+          setData={setData}
+          setShow={setShow}
+          setPreviewData={setPreviewData}
+          onSearchChange={onSearchChange}
+        />
+      )}
+      {searchValue === 'Lists' && (
+        <ListsForm
           setData={setData}
           setShow={setShow}
           setPreviewData={setPreviewData}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Headings, Paragraph, Quote } from './';
+import { Headings, Paragraph, Quote, Lists } from './';
 
 const PreviewSection = ({ previewData }) => {
   if (previewData) {
@@ -21,6 +21,13 @@ const PreviewSection = ({ previewData }) => {
       return (
         <div className="mt-16">
           <Headings data={previewData.data} />
+        </div>
+      );
+    }
+    if (previewData.item === 'lists') {
+      return (
+        <div className="mt-16">
+          <Lists data={previewData.data} />
         </div>
       );
     }
