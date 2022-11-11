@@ -1,13 +1,8 @@
 import { Select } from '@mantine/core';
 import { useState } from 'react';
-import { Headings, Paragraph, Quote, SectionWrapper } from './components';
-import {
-  HeadingsForm,
-  ParagraphForm,
-  QuoteForm,
-} from './components/EditorForm';
-
 import styles from './components/constants';
+import ShowForm from './components/ShowForm';
+import ShowSection from './components/ShowSection';
 
 function App() {
   const [show, setShow] = useState(false);
@@ -20,79 +15,10 @@ function App() {
     onSearchChange('');
   };
 
-  // moveUp, moveDown, deleteSection for wrapper Section
-  const moveUp = (id) => {
-    if (data.length >= 2) {
-      if (id > 0) {
-        const currentItem = data[id];
-        setData((data) => {
-          data.splice(id - 1, 0, currentItem);
-          data.splice(id + 1, 1);
-          return [...data];
-        });
-      }
-    }
-  };
-
-  const moveDown = (id) => {
-    if (id + 1 < data.length) {
-      moveUp(id + 1);
-    }
-  };
-
-  const deleteSection = (id) => {
-    setData((data) => {
-      data.splice(id, 1);
-      return [...data];
-    });
-  };
-
   return (
     <div className="container mx-auto max-w-6xl py-6">
-      {/* Store data shown first */}
-      <div>
-        {data.map((singleData, idx) => {
-          if (singleData.item === 'paragraph') {
-            return (
-              <SectionWrapper
-                key={idx}
-                id={idx}
-                moveUp={moveUp}
-                moveDown={moveDown}
-                deleteSection={deleteSection}
-              >
-                <Paragraph data={singleData.data} />
-              </SectionWrapper>
-            );
-          }
-          if (singleData.item === 'quote') {
-            return (
-              <SectionWrapper
-                key={idx}
-                id={idx}
-                moveUp={moveUp}
-                moveDown={moveDown}
-                deleteSection={deleteSection}
-              >
-                <Quote data={singleData.data} />
-              </SectionWrapper>
-            );
-          }
-          if (singleData.item === 'headings') {
-            return (
-              <SectionWrapper
-                key={idx}
-                id={idx}
-                moveUp={moveUp}
-                moveDown={moveDown}
-                deleteSection={deleteSection}
-              >
-                <Headings data={singleData.data} />
-              </SectionWrapper>
-            );
-          }
-        })}
-      </div>
+      <ShowSection data={data} setData={setData} />
+
       <br />
 
       {/* add section btn */}
@@ -130,27 +56,12 @@ function App() {
 
       {/* Showing Forms upon section selection */}
 
-      {searchValue === 'Paragraph' && (
-        <ParagraphForm
-          setData={setData}
-          setShow={setShow}
-          onSearchChange={onSearchChange}
-        />
-      )}
-      {searchValue === 'Quote' && (
-        <QuoteForm
-          setData={setData}
-          setShow={setShow}
-          onSearchChange={onSearchChange}
-        />
-      )}
-      {searchValue === 'Headings' && (
-        <HeadingsForm
-          setData={setData}
-          setShow={setShow}
-          onSearchChange={onSearchChange}
-        />
-      )}
+      <ShowForm
+        searchValue={searchValue}
+        setData={setData}
+        setShow={setShow}
+        onSearchChange={onSearchChange}
+      />
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { useClickOutside } from '@mantine/hooks';
 import React, { useState } from 'react';
 import styles from './constants';
 
-const SectionWrapper = ({ id, moveUp, moveDown, deleteSection, children }) => {
+const SectionWrapper = ({ id, data, setData, children }) => {
   const [show, setShow] = useState(false);
 
   const ref = useClickOutside(() => {
@@ -18,6 +18,33 @@ const SectionWrapper = ({ id, moveUp, moveDown, deleteSection, children }) => {
   const handleClick = (e) => {
     e.preventDefault();
     setShow(!show);
+  };
+
+  // moveUp, moveDown, deleteSection for wrapper Section
+  const moveUp = (id) => {
+    if (data.length >= 2) {
+      if (id > 0) {
+        const currentItem = data[id];
+        setData((data) => {
+          data.splice(id - 1, 0, currentItem);
+          data.splice(id + 1, 1);
+          return [...data];
+        });
+      }
+    }
+  };
+
+  const moveDown = (id) => {
+    if (id + 1 < data.length) {
+      moveUp(id + 1);
+    }
+  };
+
+  const deleteSection = (id) => {
+    setData((data) => {
+      data.splice(id, 1);
+      return [...data];
+    });
   };
 
   return (
