@@ -1,12 +1,14 @@
 import { Select } from '@mantine/core';
 import { useState } from 'react';
 import styles from './components/constants';
+import PreviewSection from './components/PreviewSection';
 import ShowForm from './components/ShowForm';
 import ShowSection from './components/ShowSection';
 
 function App() {
   const [show, setShow] = useState(false);
   const [data, setData] = useState([]);
+  const [previewData, setPreviewData] = useState('');
   const [searchValue, onSearchChange] = useState('');
 
   const handleClick = (e) => {
@@ -18,7 +20,7 @@ function App() {
   return (
     <div className="container mx-auto max-w-6xl py-6">
       <ShowSection data={data} setData={setData} />
-
+      <PreviewSection previewData={previewData} />
       <br />
 
       {/* add section btn */}
@@ -50,16 +52,15 @@ function App() {
           className="flex justify-center"
         />
       )}
-
       <br />
       <br />
 
       {/* Showing Forms upon section selection */}
-
       <ShowForm
         searchValue={searchValue}
         setData={setData}
         setShow={setShow}
+        setPreviewData={setPreviewData}
         onSearchChange={onSearchChange}
       />
     </div>

@@ -1,15 +1,30 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showNotification } from '@mantine/notifications';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ButtonGroup from './ButtonGroup';
 import styles from './constants';
 import FormButtons from './FormButtons';
 
-const HeadingsForm = ({ setData, setShow, onSearchChange }) => {
+const HeadingsForm = ({ setData, setShow, setPreviewData, onSearchChange }) => {
   const [heading, setHeading] = useState('h1');
   const [value, setValue] = useState('');
   const [textAlign, setTextAlign] = useState('text-left');
+
+  useEffect(() => {
+    if (value) {
+      setPreviewData({
+        item: 'headings',
+        data: {
+          headingName: heading,
+          textAlign: textAlign,
+          text: value,
+        },
+      });
+    } else {
+      setPreviewData('');
+    }
+  }, [value, heading, textAlign]);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -84,7 +99,11 @@ const HeadingsForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <FormButtons handleClick={handleClick} handleCancel={handleCancel} />
+      <FormButtons
+        handleClick={handleClick}
+        handleCancel={handleCancel}
+        setPreviewData={setPreviewData}
+      />
     </form>
   );
 };

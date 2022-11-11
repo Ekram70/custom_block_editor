@@ -1,13 +1,20 @@
 import React from 'react';
 import { HeadingsForm, ParagraphForm, QuoteForm } from './EditorForm';
 
-const ShowForm = ({ searchValue, setData, setShow, onSearchChange }) => {
+const ShowForm = ({
+  searchValue,
+  setData,
+  setShow,
+  setPreviewData,
+  onSearchChange,
+}) => {
   return (
     <div>
       {searchValue === 'Paragraph' && (
         <ParagraphForm
           setData={setData}
           setShow={setShow}
+          setPreviewData={setPreviewData}
           onSearchChange={onSearchChange}
         />
       )}
@@ -15,6 +22,7 @@ const ShowForm = ({ searchValue, setData, setShow, onSearchChange }) => {
         <QuoteForm
           setData={setData}
           setShow={setShow}
+          setPreviewData={setPreviewData}
           onSearchChange={onSearchChange}
         />
       )}
@@ -22,6 +30,7 @@ const ShowForm = ({ searchValue, setData, setShow, onSearchChange }) => {
         <HeadingsForm
           setData={setData}
           setShow={setShow}
+          setPreviewData={setPreviewData}
           onSearchChange={onSearchChange}
         />
       )}

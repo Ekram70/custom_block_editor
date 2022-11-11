@@ -1,15 +1,35 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showNotification } from '@mantine/notifications';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ButtonGroup from './ButtonGroup';
 import styles from './constants';
 import FormButtons from './FormButtons';
 
-const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
+const ParagraphForm = ({
+  setData,
+  setShow,
+  setPreviewData,
+  onSearchChange,
+}) => {
   const [value, setValue] = useState('');
   const [textAlign, setTextAlign] = useState('text-left');
   const [fontSize, setFontSize] = useState('text-base');
+
+  useEffect(() => {
+    if (value) {
+      setPreviewData({
+        item: 'paragraph',
+        data: {
+          fontSize: fontSize,
+          textAlign: textAlign,
+          text: value,
+        },
+      });
+    } else {
+      setPreviewData('');
+    }
+  }, [value, fontSize, textAlign]);
 
   const handleChange = (e) => {
     setValue(e.target.value);
@@ -82,7 +102,11 @@ const ParagraphForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <FormButtons handleClick={handleClick} handleCancel={handleCancel} />
+      <FormButtons
+        handleClick={handleClick}
+        handleCancel={handleCancel}
+        setPreviewData={setPreviewData}
+      />
     </form>
   );
 };

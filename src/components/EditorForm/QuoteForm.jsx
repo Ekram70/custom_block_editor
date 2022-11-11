@@ -1,16 +1,31 @@
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showNotification } from '@mantine/notifications';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import styles from './constants';
 import FormButtons from './FormButtons';
 
-const QuoteForm = ({ setData, setShow, onSearchChange }) => {
+const QuoteForm = ({ setData, setShow, setPreviewData, onSearchChange }) => {
   const [value, setValue] = useState({
     text: '',
     author: '',
     designation: '',
   });
+
+  useEffect(() => {
+    if (value.text) {
+      setPreviewData({
+        item: 'quote',
+        data: {
+          text: value.text,
+          author: value.author,
+          designation: value.designation,
+        },
+      });
+    } else {
+      setPreviewData('');
+    }
+  }, [value]);
 
   const handleChange = (e) => {
     setValue((value) => {
@@ -103,7 +118,11 @@ const QuoteForm = ({ setData, setShow, onSearchChange }) => {
 
       <br />
 
-      <FormButtons handleClick={handleClick} handleCancel={handleCancel} />
+      <FormButtons
+        handleClick={handleClick}
+        handleCancel={handleCancel}
+        setPreviewData={setPreviewData}
+      />
     </form>
   );
 };
