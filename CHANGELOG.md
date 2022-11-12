@@ -106,8 +106,31 @@
 
 - Live preview section added. Use can see live preview as they start typing
 
+<br />
+<br />
+
 # 0.6.1
 
 2022-11-11
 
 - A detailed changelog added
+
+<br />
+<br />
+
+# 0.7.0
+
+2022-11-11
+
+- List option added. Only ordered list is workable
+
+<br />
+<br />
+
+# 0.7.1
+
+2022-11-12
+
+- All list option are working including ordered, unordered, unstyled and description list
+- Preview section is responsing according to the selected list option
+- All list forms are now seperated and can be changed easily

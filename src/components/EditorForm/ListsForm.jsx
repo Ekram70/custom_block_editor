@@ -1,65 +1,28 @@
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showNotification } from '@mantine/notifications';
 import { useEffect, useState } from 'react';
 import ButtonGroup from './ButtonGroup';
 import styles from './constants';
+import DescriptionListForm from './DescriptionListForm';
 import FormButtons from './FormButtons';
+import OrderedListForm from './OrderedListForm';
+import UnorderedListForm from './UnorderedListForm';
+import UnstyledListForm from './UnstyledListForm';
 
 const ListsForm = ({ setData, setShow, setPreviewData, onSearchChange }) => {
   const [list, setList] = useState('ordered');
-  const [title, setTitle] = useState('');
-  const [items, setItems] = useState(['']);
+  const [listObj, setListObj] = useState({});
 
   useEffect(() => {
-    if ((items.length > 0 && !items.includes('')) || title) {
-      setPreviewData({
-        item: 'lists',
-        data: {
-          title: title,
-          type: list,
-          items: items,
-        },
-      });
-    } else {
-      setPreviewData('');
-    }
-  }, [list, title, items]);
-
-  const handleItems = (e) => {
-    const newValues = [];
-    for (let i = 0; i < items.length; i++) {
-      if (i !== Number(e.target.id)) {
-        newValues.push(items[i]);
-      } else {
-        newValues.push(e.target.value);
-      }
-    }
-    setItems([...newValues]);
-  };
-
-  const handleIncrement = (e) => {
-    e.preventDefault();
-    setItems((values) => {
-      return [...values, ''];
-    });
-  };
+    setPreviewData('');
+  }, [list]);
 
   const handleClick = (e) => {
     e.preventDefault();
-    if (items.length > 0 && !items.includes('')) {
+    if (listObj?.data?.items.length) {
       setData((data) => {
-        return [
-          ...data,
-          {
-            item: 'lists',
-            data: {
-              title: title,
-              type: list,
-              items: items,
-            },
-          },
-        ];
+        return [...data, listObj];
       });
       setShow(false);
       onSearchChange('');
@@ -88,51 +51,41 @@ const ListsForm = ({ setData, setShow, setPreviewData, onSearchChange }) => {
             <ButtonGroup
               property={list}
               setProperty={setList}
-              values={['ordered', 'unordered', 'unstyled', 'desccription']}
-              texts={['ordered', 'unordered', 'unstyled', 'desccription']}
+              values={['ordered', 'unordered', 'unstyled', 'description']}
+              texts={['ordered', 'unordered', 'unstyled', 'description']}
             />
           </div>
         </div>
-
-        <div>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            name="title"
-            className={styles.formQuoteInput}
-            placeholder="Enter List Title (Optional)"
+        {list === 'ordered' && (
+          <OrderedListForm
+            setPreviewData={setPreviewData}
+            setListObj={setListObj}
           />
-          <br />
-          {items.map((item, idx) => {
-            return (
-              <div key={idx}>
-                <input
-                  type="text"
-                  value={item}
-                  id={idx}
-                  onChange={handleItems}
-                  className={styles.formQuoteInput}
-                  placeholder="Enter List Item"
-                />
-                <br />
-              </div>
-            );
-          })}
-          <div className="text-center">
-            <button
-              type="button"
-              onClick={handleIncrement}
-              className="text-white bg-blue-400 hover:bg-blue-500 rounded-full p-2.5 inline-flex items-center  active:scale-95"
-            >
-              <FontAwesomeIcon icon={faPlus} />
-            </button>
-          </div>
-        </div>
+        )}
+
+        {list === 'unordered' && (
+          <UnorderedListForm
+            setPreviewData={setPreviewData}
+            setListObj={setListObj}
+          />
+        )}
+
+        {list === 'unstyled' && (
+          <UnstyledListForm
+            setPreviewData={setPreviewData}
+            setListObj={setListObj}
+          />
+        )}
+
+        {list === 'description' && (
+          <DescriptionListForm
+            setPreviewData={setPreviewData}
+            setListObj={setListObj}
+          />
+        )}
       </div>
 
       <br />
-
       <br />
 
       <FormButtons
