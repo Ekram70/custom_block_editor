@@ -1,5 +1,12 @@
 import React from 'react';
-import { Headings, Lists, Paragraph, Quote, SectionWrapper } from './';
+import {
+  Headings,
+  ImageComponent,
+  Lists,
+  Paragraph,
+  Quote,
+  SectionWrapper,
+} from './';
 
 const ShowSection = ({ data, setData }) => {
   return (
@@ -30,6 +37,13 @@ const ShowSection = ({ data, setData }) => {
           return (
             <SectionWrapper key={idx} id={idx} data={data} setData={setData}>
               <Lists data={singleData.data} />
+            </SectionWrapper>
+          );
+        }
+        if (singleData.item === 'image') {
+          return (
+            <SectionWrapper key={idx} id={idx} data={data} setData={setData}>
+              <ImageComponent data={singleData.data} />
             </SectionWrapper>
           );
         }

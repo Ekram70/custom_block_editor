@@ -134,3 +134,12 @@
 - All list option are working including ordered, unordered, unstyled and description list
 - Preview section is responsing according to the selected list option
 - All list forms are now seperated and can be changed easily
+
+<br />
+<br />
+
+# 0.8.0
+
+2022-11-21
+
+- Image Component Added
